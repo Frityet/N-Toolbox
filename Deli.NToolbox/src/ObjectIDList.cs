@@ -20,7 +20,7 @@ namespace NToolbox
 
             if (!Directory.Exists(NTOOLBOX_DIR)) Directory.CreateDirectory(NTOOLBOX_DIR);
 
-            FileInfo file = new(Path.Combine(NTOOLBOX_DIR, filename));
+            FileInfo file = new FileInfo(Path.Combine(NTOOLBOX_DIR, filename));
 
             using StreamWriter writer = file.CreateText();
             foreach (var obj in objIds) writer.WriteLine(obj);
