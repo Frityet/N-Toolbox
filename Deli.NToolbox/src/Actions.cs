@@ -38,7 +38,7 @@ namespace NToolbox
             typeof(FVRFireArmAttachment),
         };
         
-        public static void GatherButtonClicked()
+        public static void GatherButtonClicked(object sender, ButtonClickEventArgs args)
         {
             //Get player pos upon every button press
             Vector3 playerPos = GM.CurrentPlayerBody.Head.position;
@@ -56,7 +56,7 @@ namespace NToolbox
                         Vector3.Scale(UnityEngine.Random.insideUnitSphere, new Vector3(1.3f, 0.7f, 1.3f)) - new Vector3(0, 0.5f, 0);
         }
 
-        public static void DeleteButtonClicked()
+        public static void DeleteButtonClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var physObject in Object.FindObjectsOfType<FVRPhysicalObject>())
                 if (!physObject.IsHeld && physObject.QuickbeltSlot == null && physObject.transform.parent == null)
@@ -67,14 +67,14 @@ namespace NToolbox
                     Object.Destroy(physObject.gameObject);
         }
 
-        public static void ResetTrapsButtonClicked()
+        public static void ResetTrapsButtonClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var beartrap in Object.FindObjectsOfType<MF2_BearTrap>())
                 if (!beartrap.IsHeld && beartrap.QuickbeltSlot == null)
                     beartrap.ForceOpen();
         }
 
-        public static void FreezeFireArmsMeleeButtonClicked()
+        public static void FreezeFireArmsMeleeButtonClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var physObject in Object.FindObjectsOfType<FVRFireArm>())
                 if (!physObject.IsHeld && physObject.QuickbeltSlot == null)        
@@ -84,21 +84,21 @@ namespace NToolbox
                     physObject.IsKinematicLocked = true;
         }
 
-        public static void FreezeAmmoMagButtonClicked()
+        public static void FreezeAmmoMagButtonClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var obj in Object.FindObjectsOfType<FVRPhysicalObject>())
                 if (!obj.IsHeld && obj.QuickbeltSlot == null && (obj.GetType() == typeof(FVRFireArmRound) || obj.GetType() == typeof(FVRFireArmMagazine)))
                     obj.IsKinematicLocked = true;
         }
 
-        public static void FreezeAttachmentsButtonClicked()
+        public static void FreezeAttachmentsButtonClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var att in Object.FindObjectsOfType<FVRFireArmAttachment>())
                 if (!att.IsHeld && att.QuickbeltSlot == null)
                     att.IsKinematicLocked = true;
         }
 
-        public static void UnFreezeAllClicked()
+        public static void UnFreezeAllClicked(object sender, ButtonClickEventArgs args)
         {
             foreach (var physObject in Object.FindObjectsOfType<FVRPhysicalObject>())
                 if (!physObject.IsHeld && physObject.QuickbeltSlot == null)
@@ -108,9 +108,9 @@ namespace NToolbox
                     physObject.IsKinematicLocked = false;
         }
 
-        public static void SpawnAmmoPanelButtonClicked() => SpawnItemByItemIdLeftHand("AmmoPanel", true);
+        public static void SpawnAmmoPanelButtonClicked(object sender, ButtonClickEventArgs args) => SpawnItemByItemIdLeftHand("AmmoPanel", true);
 
-        public static void SpawnItemByItemIdLeftHand(String itemId, bool kinLoc)
+        public static void SpawnItemByItemIdLeftHand(string itemId, bool kinLoc)
         {
             var obj = IM.OD[itemId];
             FVRPhysicalObject physObj = Object.Instantiate(obj.GetGameObject()).GetComponent<FVRPhysicalObject>();
@@ -118,7 +118,7 @@ namespace NToolbox
             physObj.SetIsKinematicLocked(kinLoc);
         }
 
-        public static void DeleteQuickbelt()
+        public static void DeleteQuickbelt(object sender, ButtonClickEventArgs args)
         {
             foreach (var physObject in Object.FindObjectsOfType<FVRPhysicalObject>())
                 if (!physObject.IsHeld && physObject.QuickbeltSlot != null && physObject.transform.parent == null)
@@ -132,9 +132,9 @@ namespace NToolbox
         //--Player---------------------------------------------------
         //--Player---------------------------------------------------
 
-        public static void RestoreHpButtonClicked() => GM.CurrentPlayerBody.ResetHealth();
+        public static void RestoreHpButtonClicked(object sender, ButtonClickEventArgs args) => GM.CurrentPlayerBody.ResetHealth();
 
-        public static void ToggleOneHitButtonClicked()
+        public static void ToggleOneHitButtonClicked(object sender, ButtonClickEventArgs args)
         {
             if (GM.CurrentPlayerBody.GetPlayerHealthRaw() != 1)
             {
@@ -148,7 +148,7 @@ namespace NToolbox
             }
         }
 
-        public static void ToggleGodModeButtonClicked()
+        public static void ToggleGodModeButtonClicked(object sender, ButtonClickEventArgs args)
         {
             //default hitboxes are true
             foreach (var v in GM.CurrentPlayerBody.Hitboxes)
@@ -158,7 +158,7 @@ namespace NToolbox
             _isMortal = !_isMortal;
         }
 
-        public static void ToggleInvisButtonClicked()//-1 doesnt work lmao
+        public static void ToggleInvisButtonClicked(object sender, ButtonClickEventArgs args)//-1 doesnt work lmao
         {
             if (GM.CurrentPlayerBody.GetPlayerIFF() != -1)
             {
@@ -171,13 +171,13 @@ namespace NToolbox
             }
         }
 
-        public static void ToggleControllerGeo() => 
+        public static void ToggleControllerGeo(object sender, ButtonClickEventArgs args) => 
             GM.Options.QuickbeltOptions.HideControllerGeoWhenObjectHeld = !GM.Options.QuickbeltOptions.HideControllerGeoWhenObjectHeld;
 
-        public static void ToggleHealthBar() =>
+        public static void ToggleHealthBar(object sender, ButtonClickEventArgs args) =>
             GM.CurrentPlayerBody.HealthBar.gameObject.SetActive(!GM.CurrentPlayerBody.HealthBar.gameObject.activeSelf);
 
-        public static void ToggleHandCollision()
+        public static void ToggleHandCollision(object sender, ButtonClickEventArgs args)
         {
             LeftCollider.SetActive(!LeftCollider.activeSelf);
             LeftCollider.transform.SetParent(LeftCollider.transform.parent == null ? GM.CurrentPlayerBody.LeftHand : null, false);
@@ -203,7 +203,7 @@ namespace NToolbox
             return obj;
         }
 
-        public static void ToggleStreamlined()
+        public static void ToggleStreamlined(object sender, ButtonClickEventArgs args)
         {
             var handcomp = GM.CurrentPlayerBody.LeftHand.GetComponent<FVRViveHand>();
             handcomp.IsInStreamlinedMode
@@ -214,13 +214,13 @@ namespace NToolbox
                 = !handcomp.IsInStreamlinedMode;
         }
 
-        public static void RemoveHitDecalCap()
+        public static void RemoveHitDecalCap(object sender, ButtonClickEventArgs args)
         {
             GM.Options.SimulationOptions.MaxHitDecalIndex2 = 4;
             GM.Options.SimulationOptions.MaxHitDecals[4] = 69420;
         }
 
-        public static void RemoveDecals()
+        public static void RemoveDecals(object sender, ButtonClickEventArgs args)
         {
             int index = GM.Options.SimulationOptions.MaxHitDecalIndex2;
             int lastDecalCap = GM.Options.SimulationOptions.MaxHitDecals[index];
@@ -230,7 +230,7 @@ namespace NToolbox
             GM.Options.SimulationOptions.MaxHitDecals[index] = lastDecalCap;
         }
 
-        public static void ToggleBoltMode()
+        public static void ToggleBoltMode(object sender, ButtonClickEventArgs args)
         {
             GM.Options.QuickbeltOptions.BoltActionModeSetting =
                 GM.Options.QuickbeltOptions.BoltActionModeSetting == QuickbeltOptions.BoltActionMode.Quickbolting ? QuickbeltOptions.BoltActionMode.Slidebolting
@@ -239,9 +239,9 @@ namespace NToolbox
 
         //--TNH---------------------------------------------------------
 
-        public static void KillPlayerButtonClicked() => GM.CurrentPlayerBody.KillPlayer(true);
+        public static void KillPlayerButtonClicked(object sender, ButtonClickEventArgs args) => GM.CurrentPlayerBody.KillPlayer(true);
 
-        public static void AddTokenButtonClicked() => GM.TNH_Manager.AddTokens(1, true);
+        public static void AddTokenButtonClicked(object sender, ButtonClickEventArgs args) => GM.TNH_Manager.AddTokens(1, true);
 
         private static void SpawnButton(Func<Transform, GameObject> spawnerFunc)
         {
@@ -251,11 +251,11 @@ namespace NToolbox
             spawnerFunc.Invoke(spawnPos);
         }
 
-        public static void SpawnAmmoReloaderButton() => SpawnButton(GM.TNH_Manager.SpawnAmmoReloader);
-        public static void SpawnMagDupeButton() => SpawnButton(GM.TNH_Manager.SpawnMagDuplicator);
-        public static void SpawnGunRecyclerButton() => SpawnButton(GM.TNH_Manager.SpawnGunRecycler);
+        public static void SpawnAmmoReloaderButton(object sender, ButtonClickEventArgs args) => SpawnButton(GM.TNH_Manager.SpawnAmmoReloader);
+        public static void SpawnMagDupeButton(object sender, ButtonClickEventArgs args) => SpawnButton(GM.TNH_Manager.SpawnMagDuplicator);
+        public static void SpawnGunRecyclerButton(object sender, ButtonClickEventArgs args) => SpawnButton(GM.TNH_Manager.SpawnGunRecycler);
 
-        public static void KillPatrolsButtonClicked() => GM.TNH_Manager.KillAllPatrols();
+        public static void KillPatrolsButtonClicked(object sender, ButtonClickEventArgs args) => GM.TNH_Manager.KillAllPatrols();
         
         public static void Empty() {  }
     }

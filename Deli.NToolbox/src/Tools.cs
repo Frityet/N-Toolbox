@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Sodalite;
 
 namespace NToolbox
 {
     public static class Tools
     {
-        public static readonly Dictionary<string, Action> ITEM = new()
+        public static readonly Dictionary<string, ButtonClickEvent> ITEM = new Dictionary<string, ButtonClickEvent>
         {
             { "Gather Items", Actions.GatherButtonClicked },
             { "Delete Items", Actions.DeleteButtonClicked },
@@ -21,7 +22,7 @@ namespace NToolbox
             //sosig spawner
         };
 
-        public static readonly Dictionary<string, Action> PLAYER = new()
+        public static readonly Dictionary<string, ButtonClickEvent> PLAYER = new Dictionary<string, ButtonClickEvent>
         {
             { "Kill yourself", Actions.KillPlayerButtonClicked },
             { "Remove hit decal cap", Actions.RemoveHitDecalCap },
@@ -35,7 +36,7 @@ namespace NToolbox
             { "Toggle Streamlined", Actions.ToggleStreamlined },
         };
 
-        public static readonly Dictionary<string, Action> TNH = new()
+        public static readonly Dictionary<string, ButtonClickEvent> TNH = new Dictionary<string, ButtonClickEvent>
         {
             { "Add token", Actions.AddTokenButtonClicked },
             { "SP - Ammo Reloader", Actions.SpawnAmmoReloaderButton },

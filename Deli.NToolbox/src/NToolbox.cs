@@ -20,8 +20,8 @@ namespace NToolbox
         public readonly ConfigEntry<bool> LoadWristMenu;
         //public static ConfigEntry<bool> EnableHandColliders;
         public static ConfigEntry<bool> EnableDebugSpheres;
-        private FVRViveHand LeftHandComp = new FVRViveHand();
-        private FVRViveHand RightHandComp = new FVRViveHand();
+        private FVRViveHand _leftHandComp = new FVRViveHand();
+        private FVRViveHand _rightHandComp = new FVRViveHand();
 
         public NToolbox() 
         {
@@ -61,12 +61,12 @@ namespace NToolbox
             {
                 //Hand collider interaction
                 //Disable/enable based on Grip interaction
-                if (LeftHandComp.m_state.Equals(FVRViveHand.HandState.GripInteracting))
+                if (_leftHandComp.m_state.Equals(FVRViveHand.HandState.GripInteracting))
                     Actions.LeftCollider.SetActive(false);
                 else if (!Actions.LeftCollider.activeSelf)
                     Actions.LeftCollider.SetActive(true);
 
-                if (RightHandComp.m_state.Equals(FVRViveHand.HandState.GripInteracting))
+                if (_rightHandComp.m_state.Equals(FVRViveHand.HandState.GripInteracting))
                     Actions.RightCollider.SetActive(false);
                 else if (!Actions.RightCollider.activeSelf)
                     Actions.RightCollider.SetActive(true);
@@ -80,7 +80,7 @@ namespace NToolbox
             {
                 Debug.Log("---NToolbox caught null reference exception---");
                 Debug.Log("(If you are seeing this, report it to the mod author)");
-                Debug.Log("LeftHandComp: " + LeftHandComp != null ? "not null" : "null");
+                Debug.Log("LeftHandComp: " + _leftHandComp != null ? "not null" : "null");
                 Debug.Log("Actions.LeftCollider: " + Actions.LeftCollider != null ? "not null" : "null");
                 Debug.Log("Error: " + e);
                 Debug.Log("Attempting to reset...");
@@ -90,8 +90,8 @@ namespace NToolbox
 
         private void ResetHandObjects()
         {
-            LeftHandComp = GM.CurrentPlayerBody.LeftHand.GetComponent<FVRViveHand>();
-            RightHandComp = GM.CurrentPlayerBody.RightHand.GetComponent<FVRViveHand>();
+            _leftHandComp = GM.CurrentPlayerBody.LeftHand.GetComponent<FVRViveHand>();
+            _rightHandComp = GM.CurrentPlayerBody.RightHand.GetComponent<FVRViveHand>();
             Actions.SetColliderObjects();
         }
     }

@@ -129,7 +129,7 @@ namespace NToolbox
                 {
                     widget.AddChild((ButtonWidget button) => {
                         button.ButtonText.text = kvp.Value;
-                        button.AddButtonListener(() => Actions.SpawnItemByItemIdLeftHand(kvp.Key, true));
+                        button.AddButtonListener((_, _) => Actions.SpawnItemByItemIdLeftHand(kvp.Key, true));
                         button.RectTransform.localRotation = Quaternion.identity;
                     });
                 }
@@ -146,7 +146,7 @@ namespace NToolbox
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Current Duration: " + GM.Options.QuickbeltOptions.TrailDecayTimes[2];
-                    button.AddButtonListener(() => { UpdateTracerDisplay(button, 0); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(button, 0); });
                     button.RectTransform.localRotation = Quaternion.identity;
                     displayButton = button;
                 });
@@ -154,7 +154,7 @@ namespace NToolbox
                 widget.AddChild((ButtonWidget button) => {
                     String buttonText = "Toggle Enabled [" + GM.Options.QuickbeltOptions.AreBulletTrailsEnabled + "]";
                     button.ButtonText.text = buttonText;
-                    button.AddButtonListener(() => {
+                    button.AddButtonListener((_, _) => {
                         GM.Options.QuickbeltOptions.AreBulletTrailsEnabled = !GM.Options.QuickbeltOptions.AreBulletTrailsEnabled;
                         button.ButtonText.text = "Toggle Enabled [" + GM.Options.QuickbeltOptions.AreBulletTrailsEnabled + "]";
                     });
@@ -163,43 +163,43 @@ namespace NToolbox
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 0.01";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, 0.01f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, 0.01f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 0.10";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, 0.10f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, 0.10f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 1.00";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, 1.00f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, 1.00f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
                 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 0.01";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, -0.01f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, -0.01f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 0.10";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, -0.10f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, -0.10f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 1.00";
-                    button.AddButtonListener(() => { UpdateTracerDisplay(displayButton, -1.00f); });
+                    button.AddButtonListener((_, _) => { UpdateTracerDisplay(displayButton, -1.00f); });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Target correct trail value \"1s\"";
-                    button.AddButtonListener(() => { GM.Options.QuickbeltOptions.TrailDecaySetting = 2; });
+                    button.AddButtonListener((_, _) => { GM.Options.QuickbeltOptions.TrailDecaySetting = 2; });
                     button.RectTransform.localRotation = Quaternion.identity;
                 });
 
@@ -219,7 +219,7 @@ namespace NToolbox
                 {
                     widget.AddChild((ButtonWidget button) => {
                         button.ButtonText.text = kvp.Value;
-                        button.AddButtonListener(() =>
+                        button.AddButtonListener((_, _) =>
                         {
                             SteamVR_LoadLevel.Begin(kvp.Key, false, 0.5f, 0f, 0f, 1f);
                             foreach (var quitReceiver in GM.CurrentSceneSettings.QuitReceivers)
@@ -248,7 +248,7 @@ namespace NToolbox
             widget.AddChild((ButtonWidget button) => {
                 String buttonText = name + " [" + value.Value + "]";
                 button.ButtonText.text = buttonText;
-                button.AddButtonListener(() => {
+                button.AddButtonListener((_, _) => {
                     value.Value = !value.Value;
                     button.ButtonText.text = buttonText;
                 });
@@ -278,23 +278,23 @@ namespace NToolbox
             page.gameObject.SetActive(true);
         }
 
-        private void SwitchToItem() => SwitchPage(_itemTools);
+        private void SwitchToItem(object sender, ButtonClickEventArgs args) => SwitchPage(_itemTools);
       
-        private void SwitchToPlayer() => SwitchPage(_playerTools);
+        private void SwitchToPlayer(object sender, ButtonClickEventArgs args) => SwitchPage(_playerTools);
 
-        private void SwitchToTnH() => SwitchPage(_tnhTools);
+        private void SwitchToTnH(object sender, ButtonClickEventArgs args) => SwitchPage(_tnhTools);
 
-        private void SwitchToPower() => SwitchPage(_powerupTools);
+        private void SwitchToPower(object sender, ButtonClickEventArgs args) => SwitchPage(_powerupTools);
         
-        private void SwitchToTracer() => SwitchPage(_tracerTools);
+        private void SwitchToTracer(object sender, ButtonClickEventArgs args) => SwitchPage(_tracerTools);
       
-        private void SwitchToScene() => SwitchPage(_sceneTools);
+        private void SwitchToScene(object sender, ButtonClickEventArgs args) => SwitchPage(_sceneTools);
 
-        private void SwitchToConfig() => SwitchPage(_configOptions);
+        private void SwitchToConfig(object sender, ButtonClickEventArgs args) => SwitchPage(_configOptions);
 
-        private void AddBatch(GridLayoutWidget widget, Dictionary<string, Action> dict)
+        private void AddBatch(GridLayoutWidget widget, Dictionary<string, ButtonClickEvent> events)
         {
-            foreach (var kvp in dict)
+            foreach (var kvp in events)
             {
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = kvp.Key;
@@ -308,7 +308,7 @@ namespace NToolbox
         {
             widget.AddChild((ButtonWidget button) => {
                 button.ButtonText.text = "----Back----";
-                button.AddButtonListener(() => 
+                button.AddButtonListener((_, _) => 
                 {
                     widget.gameObject.SetActive(false);
                     _menu.gameObject.SetActive(true);
@@ -336,22 +336,22 @@ namespace NToolbox
             widget.LayoutGroup.constraintCount = 3;
         }
 
-        public void Spawn()
+        public void Spawn(object sender, ButtonClickEventArgs args)
         {
             FVRWristMenu wristMenu = WristMenuAPI.Instance;
             if (wristMenu is null || !wristMenu) return;
             GameObject panel = _NPanel.GetOrCreatePanel();
-            wristMenu.m_currentHand.RetrieveObject(panel.GetComponent<FVRPhysicalObject>());
+            args.Hand.RetrieveObject(panel.GetComponent<FVRPhysicalObject>());
         }
 
-        private void AddSeparator() => WristMenuAPI.Buttons.Add(new WristMenuButton(Common.SEPARATOR, Actions.Empty));
+        private void AddSeparator() => WristMenuAPI.Buttons.Add(new WristMenuButton(Common.SEPARATOR, (_, _) => Actions.Empty()));
 
         public void LoadWristMenu()//legacy stuff for reasons i guess
         {
-            Dictionary<string, string> SceneList = Common.SCENES;
-            foreach (var scene in SceneList.Reverse())
+            Dictionary<string, string> sceneList = Common.SCENES;
+            foreach (var scene in sceneList.Reverse())
             {
-                WristMenuAPI.Buttons.Add(new WristMenuButton(scene.Value, () =>
+                WristMenuAPI.Buttons.Add(new WristMenuButton(scene.Value, (_, _) =>
                 {
                     SteamVR_LoadLevel.Begin(scene.Key, false, 0.5f, 0f, 0f, 1f);
                     foreach (var quitReceiver in GM.CurrentSceneSettings.QuitReceivers)
