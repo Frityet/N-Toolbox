@@ -112,7 +112,7 @@ namespace NToolbox
 
         public static void SpawnItemByItemIdLeftHand(string itemId, bool kinLoc)
         {
-            var obj = IM.OD[itemId];
+            FVRObject obj = IM.OD[itemId];
             FVRPhysicalObject physObj = Object.Instantiate(obj.GetGameObject()).GetComponent<FVRPhysicalObject>();
             physObj.transform.position = GM.CurrentPlayerBody.LeftHand.transform.position;
             physObj.SetIsKinematicLocked(kinLoc);
@@ -226,15 +226,17 @@ namespace NToolbox
             int lastDecalCap = GM.Options.SimulationOptions.MaxHitDecals[index];
 
             GM.Options.SimulationOptions.MaxHitDecals[index] = 0;
-            System.Threading.Thread.Sleep(1500);
+            //System.Threading.Thread.Sleep(1500);
             GM.Options.SimulationOptions.MaxHitDecals[index] = lastDecalCap;
         }
 
         public static void ToggleBoltMode(object sender, ButtonClickEventArgs args)
         {
             GM.Options.QuickbeltOptions.BoltActionModeSetting =
-                GM.Options.QuickbeltOptions.BoltActionModeSetting == QuickbeltOptions.BoltActionMode.Quickbolting ? QuickbeltOptions.BoltActionMode.Slidebolting
-                : QuickbeltOptions.BoltActionMode.Quickbolting;
+                GM.Options.QuickbeltOptions.BoltActionModeSetting ==
+                QuickbeltOptions.BoltActionMode.Quickbolting
+                    ? QuickbeltOptions.BoltActionMode.Slidebolting
+                    : QuickbeltOptions.BoltActionMode.Quickbolting;
         }
 
         //--TNH---------------------------------------------------------
@@ -256,7 +258,5 @@ namespace NToolbox
         public static void SpawnGunRecyclerButton(object sender, ButtonClickEventArgs args) => SpawnButton(GM.TNH_Manager.SpawnGunRecycler);
 
         public static void KillPatrolsButtonClicked(object sender, ButtonClickEventArgs args) => GM.TNH_Manager.KillAllPatrols();
-        
-        public static void Empty() {  }
     }
 }

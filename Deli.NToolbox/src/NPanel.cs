@@ -53,43 +53,43 @@ namespace NToolbox
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Item interactions";
                     button.AddButtonListener(SwitchToItem);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Player interactions";
                     button.AddButtonListener(SwitchToPlayer);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "TnH Stuff";
                     button.AddButtonListener(SwitchToTnH);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Powerups";
                     button.AddButtonListener(SwitchToPower);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
                 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Tracer Options";
                     button.AddButtonListener(SwitchToTracer);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
                 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Scene Selection";
                     button.AddButtonListener(SwitchToScene);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Config Options";
                     button.AddButtonListener(SwitchToConfig);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
             });
 
@@ -130,7 +130,7 @@ namespace NToolbox
                     widget.AddChild((ButtonWidget button) => {
                         button.ButtonText.text = kvp.Value;
                         button.AddButtonListener((_, __) => Actions.SpawnItemByItemIdLeftHand(kvp.Key, true));
-                        button.RectTransform.localRotation = Quaternion.identity;
+                        button.ButtonText.transform.localRotation = Quaternion.identity;
                     });
                 }
             });
@@ -147,7 +147,7 @@ namespace NToolbox
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Current Duration: " + GM.Options.QuickbeltOptions.TrailDecayTimes[2];
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(button, 0); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                     displayButton = button;
                 });
 
@@ -158,54 +158,54 @@ namespace NToolbox
                         GM.Options.QuickbeltOptions.AreBulletTrailsEnabled = !GM.Options.QuickbeltOptions.AreBulletTrailsEnabled;
                         button.ButtonText.text = "Toggle Enabled [" + GM.Options.QuickbeltOptions.AreBulletTrailsEnabled + "]";
                     });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 0.01";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, 0.01f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 0.10";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, 0.10f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "+ 1.00";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, 1.00f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
                 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 0.01";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, -0.01f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 0.10";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, -0.10f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "- 1.00";
                     button.AddButtonListener((_, __) => { UpdateTracerDisplay(displayButton, -1.00f); });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = "Target correct trail value \"1s\"";
                     button.AddButtonListener((_, __) => { GM.Options.QuickbeltOptions.TrailDecaySetting = 2; });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
 
-                widget.AddChild((TextWidget button) => {
-                    button.Text.text = "NOTE: Custom tracer trail times only work when the option is set to the \"1s\" trail time option in the game options.";
-                    button.RectTransform.localRotation = Quaternion.identity;
+                widget.AddChild((TextWidget text) => {
+                    text.Text.text = "NOTE: Custom tracer trail times only work when the option is set to the \"1s\" trail time option in the game options.";
+                    text.Text.transform.localRotation = Quaternion.identity;
                 });
             });
             _tracerTools.gameObject.SetActive(false);
@@ -225,7 +225,7 @@ namespace NToolbox
                             foreach (var quitReceiver in GM.CurrentSceneSettings.QuitReceivers)
                                 quitReceiver.BroadcastMessage("QUIT", SendMessageOptions.DontRequireReceiver);
                         });
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                     });
                 }
             });
@@ -252,7 +252,7 @@ namespace NToolbox
                     value.Value = !value.Value;
                     button.ButtonText.text = buttonText;
                 });
-                button.RectTransform.localRotation = Quaternion.identity;
+                button.ButtonText.transform.localRotation = Quaternion.identity;
             });
         }
 
@@ -299,7 +299,7 @@ namespace NToolbox
                 widget.AddChild((ButtonWidget button) => {
                     button.ButtonText.text = kvp.Key;
                     button.AddButtonListener(kvp.Value);
-                    button.RectTransform.localRotation = Quaternion.identity;
+                    button.ButtonText.transform.localRotation = Quaternion.identity;
                 });
             }
         }
@@ -313,7 +313,7 @@ namespace NToolbox
                     widget.gameObject.SetActive(false);
                     _menu.gameObject.SetActive(true);
                 });
-                button.RectTransform.localRotation = Quaternion.identity;
+                button.ButtonText.transform.localRotation = Quaternion.identity;
             });
         }
 
@@ -344,7 +344,7 @@ namespace NToolbox
             args.Hand.RetrieveObject(panel.GetComponent<FVRPhysicalObject>());
         }
 
-        private void AddSeparator() => WristMenuAPI.Buttons.Add(new WristMenuButton(Common.SEPARATOR, (_, __) => Actions.Empty()));
+        private void AddSeparator() => WristMenuAPI.Buttons.Add(new WristMenuButton(Common.SEPARATOR, (_, __) => {}));
 
         public void LoadWristMenu()//legacy stuff for reasons i guess
         {
