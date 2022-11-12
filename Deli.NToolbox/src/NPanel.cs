@@ -338,7 +338,7 @@ namespace NToolbox
 
         public void Spawn(object sender, ButtonClickEventArgs args)
         {
-            FVRWristMenu wristMenu = WristMenuAPI.Instance;
+            FVRWristMenu2? wristMenu = WristMenuAPI.Instance2;
             if (wristMenu is null || !wristMenu) return;
             GameObject panel = _NPanel.GetOrCreatePanel();
             args.Hand.RetrieveObject(panel.GetComponent<FVRPhysicalObject>());
